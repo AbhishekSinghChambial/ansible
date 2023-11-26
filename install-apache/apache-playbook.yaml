@@ -1,0 +1,25 @@
+# install_apache.yml
+
+---
+- name: Install Apache on EC2 instance
+  hosts: [al1]  # Update with your target host or group
+  become: true         # Run tasks with sudo
+
+  tasks:
+    - name: Update package cache
+      package:
+        name: '*'
+        state: latest
+        update_cache: yes
+
+    - name: Install Apache
+      package:
+        name: httpd
+        state: present
+
+    - name: Start Apache service
+      service:
+        name: httpd
+        state: started
+        enabled: true
+
